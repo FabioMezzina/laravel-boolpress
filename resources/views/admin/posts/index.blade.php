@@ -23,8 +23,8 @@
                   <td>{{ $post->title }}</td>
                   <td>{{ $post->created_at->diffForHumans() }}</td>
                   <td>
-                    <a href="" class="btn btn-success">Show</a>
-                    <a href="" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-success">Show</a>
+                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
                     <a href="" class="btn btn-danger">Delete</a>
                   </td>
                 </tr>

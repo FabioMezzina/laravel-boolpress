@@ -6,5 +6,8 @@
 
       <p>{{ $post->body }}</p>
 
+      @if (Auth::id() == $post->id)
+        <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+      @endif
     </div>
 @endsection
