@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * WELCOME HOMEPAGE (public)
+ */
+Route::get('/', 'HomeController@index')->name('home');
+
+/**
+ * PUBLIC ROUTES
+ */
+Route::get('posts', 'PostController@index')->name('posts.index');
+Route::get('posts/{slug}', 'PostController@show')->name('posts.show');
+
+
+/**
+ * AUTHENTICATION ROUTES
+ */
+Auth::routes();
+
+/**
+ * LOGGED USER ROUTES
+ */
+Route::prefix('admin')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->middleware('auth')
+    ->group(function() {
+        // home admin route
+        Route::get('/', 'HomeController@index')->name('home');
+
+        // Post crud route
+        Route::resource('posts', 'PostController');
+    });
